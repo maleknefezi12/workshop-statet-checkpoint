@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ImgSrc from './hunter.jpg';
 
-function App() {
+
+ class Hunter extends Component {
+  state = { fullname: "Malek Nefzi ", bio:"learn react-js", profession:"young developer", image: ImgSrc, show: false, count: 0 };
+  handleIncrement = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+  handleDecrement = () => {
+    this.state.count > 0 && this.setState({ count: this.state.count - 1 });
+  };
+  
+  handleShow = () => {
+    if (this.state.show) {
+      this.setState({ show: false });
+    } else {
+      setInterval(() => {
+        this.setState({ count: this.state.count + 1 });
+      }, 1000);
+      this.setState({ count: 0 });
+      this.setState({ show: true });
+    }
+  };
+  
+render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    
+      {this.state.show && (
+        <div>
+          <h1>{this.state.fullname}</h1>
+          <h1>{this.state.bio}</h1>
+          <img src={this.state.image} />
+          <h1>{this.state.profession}</h1>
+          <h1>{this.state.count}</h1>
+        </div>
+      )}
+      <button onClick={this.handleShow}>show information</button>
     </div>
-  );
-}
-
-export default App;
+     );
+    }
+  }
+  export default Hunter;
